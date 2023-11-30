@@ -1,0 +1,32 @@
+Abhinav Barnawal (2020CS50415) & Kushagra Rode (2020CS10354)
+
+Against Random Agent:
+
+Approach: 
+
+We have used the expectimax search with some modifications. We have tried to incorporate some of the moves made by the opponent, which could severely disadvantage our player. Hence, we have a weight associated with these scores that pushes the algorithm towards minimax search as if the opposite agent is adversarial. We tried different heuristics based on the game's various stages for the heuristic part. But that didn't give much success. Then we went ahead with using a dynamic weight approach. So this dynamic weight is nothing but the ratio of the score of the random agent divided by our score.
+    Let our score be num1, and the random agent's score is num2. Our Heuristic, then, is: num1 - 2*(num2/num1) * num2
+According to this, if the ratio of num2 by num1 is less than 1, our AI chooses actions with the given dynamic weight, which leads to a higher score for itself rather than actions that limit the opponent's score. Otherwise, it tends to use a defensive approach and limit the other player's score.
+The depth we use for the search is also dynamic and changes based on the number of empty columns at a given game stage. As more columns get filled up, we increase our depth gradually because of a decrease in the branching factor.
+
+Against Adversarial Agent:
+
+Approach:
+
+We use the minimax algorithm with alpha-beta pruning to speed up the search process. We tried different heuristics based on the game's various stages for the heuristic part. But that didn't give much success. Then we went ahead with using a dynamic weight approach. So this dynamic weight is nothing but the ratio of the adversary's score divided by our score.
+    Let our score be num1 and the adversary's score is num2. Our Heuristic, then, is: num1 - 2*(num2/num1) * num2
+According to this, if the ratio of num2 by num1 is less than 1, our AI chooses actions with the given dynamic weight, which leads to a higher score for itself rather than actions that limit the opponent's score. Otherwise, it tends to use a defensive approach and limit the other player's score.
+The Depth we use for the search is also dynamic and changes based on the number of empty columns at a given game stage. As more columns get filled up, we increase our depth gradually because of a decrease in the branching factor.
+
+
+We tried the following approaches and chose the best among them:
+1. Trying to do iterative deepening in the random agent case.
+2. Various heuristics were based on the current state of the board and the number of popouts remaining.
+   We tried the heuristic of the form (our_score - weight * opponent_score)
+    * Quadratic increase in weight
+    * Linear decrement in weight
+    * Combination of different Quadratic functions: maxima in the middle of the game
+    * Dynamically decided the weight based on the ratios of scores of the two players
+    * Sigmoid function for weight
+3. Incorporating features such as counting the number of 3's currently formed on the board both for the opponent and us.
+4. Varying depths with the states of the game.
